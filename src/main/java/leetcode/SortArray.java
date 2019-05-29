@@ -41,4 +41,13 @@ public class SortArray {
         }
         return nums;
 	}
+	public int[] quickSort(int[] nums) {
+		
+	}
+	public void recursive(int[] a, int left, int right) {
+	    	if (left >= right) return;
+	    	
+	}
 }
+
+
