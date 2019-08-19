@@ -1,7 +1,7 @@
 package com.example.helloworld.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,21 +10,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 	
 	@Autowired
-    StringRedisTemplate stringRedisTemplate;
+    RedisTemplate 		redisTemplate;
 	
-	@RequestMapping("/hello")
+	@RequestMapping("/")
 	public String getHello() {
         return "Hello World";
     }
 	
 	@RequestMapping("/redis")
 	public String getRedis() {
-		String source = stringRedisTemplate.opsForValue().get("mykey1");
-		System.out.println("source:" + source);
-        if (!StringUtils.isEmpty(source)) {
-            return source;
+
+		try {
+            return String.valueOf(redisTemplate.opsForValue().increment("SSOsessionId", 1L));
+        } catch (Exception e) {
+        	e.printStackTrace();
         }
-        
-        return "Wrong";
+		
+		return "empty";
 	}
 }
