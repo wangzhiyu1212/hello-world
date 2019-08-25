@@ -2,15 +2,20 @@ package com.example.helloworld.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.helloworld.mapper.CustomerMapper;
+import com.example.helloworld.service.CustomerService;
 
 @RestController
 public class HelloController {
 	
 	@Autowired
-    RedisTemplate 		redisTemplate;
+    private RedisTemplate 		redisTemplate;
+	
+	@Autowired
+	private CustomerService		customerService;
 	
 	@RequestMapping("/")
 	public String getHello() {
@@ -28,4 +33,9 @@ public class HelloController {
 		
 		return "empty";
 	}
+	
+	@RequestMapping("/mybatis")
+	public String getCustomer() {
+        return customerService.getName(1);
+    }
 }
