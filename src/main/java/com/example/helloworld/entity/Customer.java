@@ -1,18 +1,18 @@
 package com.example.helloworld.entity;
 
 public class Customer {
-    private Integer id;
+    private Long customerId;
 
     private String name;
 
     private String sex;
 
-    public Integer getId() {
-        return id;
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
     public String getName() {

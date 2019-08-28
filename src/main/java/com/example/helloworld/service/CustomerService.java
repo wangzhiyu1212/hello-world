@@ -11,7 +11,7 @@ public class CustomerService {
 	@Autowired
 	private CustomerMapper 		customerMapper;
 	
-	public String getName(Integer id) {
+	public String getName(Long id) {
 		return customerMapper.selectByPrimaryKey(id).getName();
 	}
 }

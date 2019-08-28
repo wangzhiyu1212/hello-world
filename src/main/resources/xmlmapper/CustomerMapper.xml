@@ -2,32 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.helloworld.mapper.CustomerMapper">
   <resultMap id="BaseResultMap" type="com.example.helloworld.entity.Customer">
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="customer_id" jdbcType="BIGINT" property="customerId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="sex" jdbcType="CHAR" property="sex" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, sex
+    customer_id, name, sex
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from customer
-    where id = #{id,jdbcType=INTEGER}
+    where customer_id = #{customerId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from customer
-    where id = #{id,jdbcType=INTEGER}
+    where customer_id = #{customerId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.example.helloworld.entity.Customer">
-    insert into customer (id, name, sex)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR})
+    insert into customer (customer_id, name, sex
+      )
+    values (#{customerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.example.helloworld.entity.Customer">
     insert into customer
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
+      <if test="customerId != null">
+        customer_id,
       </if>
       <if test="name != null">
         name,
@@ -37,8 +39,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
+      <if test="customerId != null">
+        #{customerId,jdbcType=BIGINT},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -58,12 +60,12 @@
         sex = #{sex,jdbcType=CHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where customer_id = #{customerId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.helloworld.entity.Customer">
     update customer
     set name = #{name,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=CHAR}
-    where id = #{id,jdbcType=INTEGER}
+    where customer_id = #{customerId,jdbcType=BIGINT}
   </update>
 </mapper>

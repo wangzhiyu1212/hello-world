@@ -36,6 +36,6 @@ public class HelloController {
 	
 	@RequestMapping("/mybatis")
 	public String getCustomer() {
-        return customerService.getName(1);
+        return customerService.getName(new Long(1));
     }
 }
