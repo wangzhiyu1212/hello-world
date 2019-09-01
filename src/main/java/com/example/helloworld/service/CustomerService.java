@@ -2,6 +2,8 @@ package com.example.helloworld.service;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -15,14 +17,16 @@ import com.example.helloworld.mapper.OrderMapper;
 @Service
 public class CustomerService {
 	
-	@Autowired
-    private RedisTemplate 		redisTemplate;
+	private final static Logger		logger	= LoggerFactory.getLogger(CustomerService.class);
 	
 	@Autowired
-	private CustomerMapper 		customerMapper;
+    private RedisTemplate 			redisTemplate;
+	
+	@Autowired
+	private CustomerMapper 			customerMapper;
 	
 //	@Resource
-//    private OrderMapper 		orderMapper;
+//    private OrderMapper 			orderMapper;
 	
 	@RequestMapping("/")
 	public String getName(Long id) {
@@ -35,6 +39,7 @@ public class CustomerService {
 		
 		for (int i = 0; i<100; i++) {
 			customerMapper.insertCustomer(redisTemplate.opsForValue().increment("CustomerId", 1L), "redis");
+			logger.info("i:" + i);
 		}
 
 		return customerMapper.selectByPrimaryKey(id).getName();
