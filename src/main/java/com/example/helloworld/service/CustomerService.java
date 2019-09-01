@@ -3,6 +3,7 @@ package com.example.helloworld.service;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -15,23 +16,27 @@ import com.example.helloworld.mapper.OrderMapper;
 public class CustomerService {
 	
 	@Autowired
+    private RedisTemplate 		redisTemplate;
+	
+	@Autowired
 	private CustomerMapper 		customerMapper;
 	
-	@Resource
-    private OrderMapper 		orderMapper;
+//	@Resource
+//    private OrderMapper 		orderMapper;
 	
 	@RequestMapping("/")
 	public String getName(Long id) {
-		Order order = new Order();
-        order.setOrderId(1);
-        order.setProductCode("INSERT");
-        orderMapper.insert(order);
-        
-        Customer customer = new Customer();
-        customer.setCustomerId(new Long(2));
-        customer.setName("test2");
-        customerMapper.insert(customer);
-        
+//		for (int i = 0; i<100; i++) {
+//			Order order = new Order();
+//	        order.setOrderId(redisTemplate.opsForValue().increment("OrderId", 1L));
+//	        order.setProductCode("redis");
+//	        orderMapper.insert(order);
+//		}
+		
+		for (int i = 0; i<100; i++) {
+			customerMapper.insertCustomer(redisTemplate.opsForValue().increment("CustomerId", 1L), "redis");
+		}
+
 		return customerMapper.selectByPrimaryKey(id).getName();
 				
 	}

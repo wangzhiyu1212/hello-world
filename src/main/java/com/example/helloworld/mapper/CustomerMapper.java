@@ -1,6 +1,7 @@
 package com.example.helloworld.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.example.helloworld.entity.Customer;
 
@@ -9,6 +10,8 @@ public interface CustomerMapper {
     int deleteByPrimaryKey(Long customerId);
 
     int insert(Customer record);
+    
+    int insertCustomer(@Param("customerId")Long customerId, @Param("name")String name);
 
     int insertSelective(Customer record);
 
