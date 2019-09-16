@@ -62,12 +62,9 @@
 
 		<!-- Kafka <dependency> <groupId>org.springframework.kafka</groupId> <artifactId>spring-kafka</artifactId> 
 			</dependency> -->
-<!--
-		<dependency>
-			<groupId>org.apache.shardingsphere</groupId>
-			<artifactId>sharding-jdbc-spring-boot-starter</artifactId>
-			<version>4.0.0-RC2</version>
-		</dependency> -->
+		<!-- Sharding <dependency> <groupId>org.apache.shardingsphere</groupId> 
+			<artifactId>sharding-jdbc-spring-boot-starter</artifactId> <version>4.0.0-RC2</version> 
+			</dependency> -->
 	</dependencies>
 
 	<build>
