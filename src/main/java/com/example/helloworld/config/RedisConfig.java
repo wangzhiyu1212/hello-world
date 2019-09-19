@@ -1,4 +1,4 @@
-package com.example.helloworld.configure;
+package com.example.helloworld.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +11,7 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
-public class RedisConfigure {
+public class RedisConfig {
 
     @Autowired
     private RedisTemplate redisTemplate;
