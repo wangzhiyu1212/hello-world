@@ -61,6 +61,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+			
 		</dependency>
 
 		<!-- Kafka <dependency> <groupId>org.springframework.kafka</groupId> <artifactId>spring-kafka</artifactId> 
@@ -81,9 +82,10 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+
 			</plugin>
 
-			<!--mybatis自动生成代码插件 -->
+			<!--mybatis自动生成代码插件 
 			<plugin>
 				<groupId>org.mybatis.generator</groupId>
 				<artifactId>mybatis-generator-maven-plugin</artifactId>
@@ -92,7 +94,7 @@
 					<overwrite>true</overwrite>
 				</configuration>
 			</plugin>
-
+-->
 		</plugins>
 	</build>
 

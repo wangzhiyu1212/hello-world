@@ -39,7 +39,7 @@ public class HelloController {
 	private final static Logger logger = LoggerFactory.getLogger(HelloController.class);
 
 	@Autowired
-	private RedisTemplate redisTemplate;
+	private RedisTemplate<String, Map<String, Object>> redisTemplate;
 
 	@Autowired
 	private CustomerService customerService;
@@ -53,7 +53,7 @@ public class HelloController {
 	// @Autowired
 	// private GridFsTemplate gridFsTemplate;
 
-	@RequestMapping("/")
+	@RequestMapping("/hello")
 	public String getHello() {
 		return "Hello World";
 	}
@@ -68,8 +68,9 @@ public class HelloController {
 			testMap.put("age", 27);
 			testMap.put("class", "1");
 			testMap.put("in", testMap2);
-			redisTemplate.opsForHash().putAll("redisHash1", testMap);
-			logger.info(redisTemplate.opsForHash().entries("redisHash1").toString());
+			redisTemplate.opsForHash().putAll("redishash", testMap);
+			logger.info(redisTemplate.opsForHash().entries("redishash").toString());
+			logger.info(redisTemplate.opsForHash().get("redishash", "age").toString());
 			return String.valueOf(redisTemplate.opsForValue().increment("SSOsessionId", 1L));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -80,9 +81,13 @@ public class HelloController {
 
 	@RequestMapping("/mybatis")
 	public String getCustomer() {
-		return customerService.getName(new Long(1));
+		long start = System.currentTimeMillis();
+		customerService.getName(new Long(1));
+		long end = System.currentTimeMillis();
+		logger.info("time:" + String.valueOf(end - start));
+		return "2";
 	}
-
+	
 	// @RequestMapping("/mongodb/getAll")
 	// public List<User> getAllUser() {
 	// List<User> userList = userRepository.findAll();

@@ -5,9 +5,10 @@
     <id column="customer_id" jdbcType="BIGINT" property="customerId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="sex" jdbcType="CHAR" property="sex" />
+    <result column="poinsts" jdbcType="DECIMAL" property="poinsts" />
   </resultMap>
   <sql id="Base_Column_List">
-    customer_id, name, sex
+    customer_id, name, sex, poinsts
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -20,16 +21,10 @@
     where customer_id = #{customerId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.example.helloworld.entity.Customer">
-    insert into customer (customer_id, name, sex
-      )
-    values (#{customerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}
-      )
-  </insert>
-  <insert id="insertCustomer">
-    insert into customer (customer_id, name
-      )
-    values (#{customerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}
-      )
+    insert into customer (customer_id, name, sex, 
+      poinsts)
+    values (#{customerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, 
+      #{poinsts,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="com.example.helloworld.entity.Customer">
     insert into customer
@@ -43,6 +38,9 @@
       <if test="sex != null">
         sex,
       </if>
+      <if test="poinsts != null">
+        poinsts,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="customerId != null">
@@ -53,6 +51,9 @@
       </if>
       <if test="sex != null">
         #{sex,jdbcType=CHAR},
+      </if>
+      <if test="poinsts != null">
+        #{poinsts,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -65,13 +66,23 @@
       <if test="sex != null">
         sex = #{sex,jdbcType=CHAR},
       </if>
+      <if test="poinsts != null">
+        poinsts = #{poinsts,jdbcType=DECIMAL},
+      </if>
     </set>
     where customer_id = #{customerId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.helloworld.entity.Customer">
     update customer
     set name = #{name,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=CHAR}
+      sex = #{sex,jdbcType=CHAR},
+      poinsts = #{poinsts,jdbcType=DECIMAL}
     where customer_id = #{customerId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByCustomerId" parameterType="com.example.helloworld.entity.Customer">
+    update customer
+    set poinsts = poinsts - 1
+    where customer_id = #{customerId,jdbcType=BIGINT}
+    and poinsts >= 0
   </update>
 </mapper>

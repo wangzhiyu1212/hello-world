@@ -28,7 +28,6 @@ public class CustomerService {
 	// @Resource
 	// private OrderMapper orderMapper;
 
-	@RequestMapping("/")
 	public String getName(Long id) {
 		// for (int i = 0; i<100; i++) {
 		// Order order = new Order();
@@ -43,7 +42,10 @@ public class CustomerService {
 		// logger.info("i:" + i);
 		// }
 
-		return customerMapper.selectByPrimaryKey(id).getName();
+		//		return customerMapper.selectByPrimaryKey(id).getName();
+		
+		return String.valueOf(customerMapper.updateByCustomerId(new Long(8)));
 
 	}
+	
 }
