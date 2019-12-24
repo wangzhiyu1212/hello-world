@@ -1,6 +1,9 @@
 package com.example.helloworld.entity;
 
 public class Customer {
+	
+	private Long id;
+	
     private Long customerId;
 
     private String name;
@@ -9,7 +12,15 @@ public class Customer {
 
     private Long poinsts;
 
-    public Long getCustomerId() {
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getCustomerId() {
         return customerId;
     }
 

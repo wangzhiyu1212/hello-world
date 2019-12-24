@@ -1,5 +1,6 @@
 package com.example.helloworld.mapper;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,6 +12,7 @@ public interface CustomerMapper {
 
     int insert(Customer record);
     
+    @Insert({"INSERT INTO customer (customer_id,name,sex,poinsts) VALUES (#{customerId},#{name},'M',100)"})
     int insertCustomer(@Param("customerId")Long customerId, @Param("name")String name);
 
     int insertSelective(Customer record);

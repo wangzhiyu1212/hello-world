@@ -1,7 +1,5 @@
 package com.example.helloworld.service;
 
-import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +7,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.helloworld.entity.Customer;
-import com.example.helloworld.entity.Order;
 import com.example.helloworld.mapper.CustomerMapper;
-import com.example.helloworld.mapper.OrderMapper;
 
 @Service
 public class CustomerService {
@@ -24,11 +19,10 @@ public class CustomerService {
 
 	@Autowired
 	private CustomerMapper customerMapper;
+	
+	Long cid = new Long(10000003);
 
-	// @Resource
-	// private OrderMapper orderMapper;
-
-	public String getName(Long id) {
+	public String insertCustomer() {
 		// for (int i = 0; i<100; i++) {
 		// Order order = new Order();
 		// order.setOrderId(redisTemplate.opsForValue().increment("OrderId", 1L));
@@ -43,8 +37,9 @@ public class CustomerService {
 		// }
 
 		//		return customerMapper.selectByPrimaryKey(id).getName();
+		customerMapper.insertCustomer(cid, String.valueOf(cid++));
 		
-		return String.valueOf(customerMapper.updateByCustomerId(new Long(8)));
+		return "success";
 
 	}
 	

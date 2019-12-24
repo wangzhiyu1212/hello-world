@@ -81,11 +81,8 @@ public class HelloController {
 
 	@RequestMapping("/mybatis")
 	public String getCustomer() {
-		long start = System.currentTimeMillis();
-		customerService.getName(new Long(1));
-		long end = System.currentTimeMillis();
-		logger.info("time:" + String.valueOf(end - start));
-		return "2";
+
+		return customerService.insertCustomer();
 	}
 	
 	// @RequestMapping("/mongodb/getAll")
