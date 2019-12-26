@@ -43,7 +43,7 @@ public class HelloController {
 
 	@Autowired
 	private CustomerService customerService;
-
+	
 	// @Autowired
 	// private UserRepository userRepository;
 	//
@@ -84,7 +84,7 @@ public class HelloController {
 
 		return customerService.insertCustomer();
 	}
-	
+		
 	// @RequestMapping("/mongodb/getAll")
 	// public List<User> getAllUser() {
 	// List<User> userList = userRepository.findAll();
