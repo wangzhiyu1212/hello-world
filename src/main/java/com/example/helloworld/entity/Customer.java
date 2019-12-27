@@ -9,7 +9,7 @@ public class Customer {
 
     private String sex;
 
-    private Long poinsts;
+    private Long points;
 
     public Long getId() {
         return id;
@@ -43,11 +43,11 @@ public class Customer {
         this.sex = sex == null ? null : sex.trim();
     }
 
-    public Long getPoinsts() {
-        return poinsts;
+    public Long getPoints() {
+        return points;
     }
 
-    public void setPoinsts(Long poinsts) {
-        this.poinsts = poinsts;
+    public void setPoints(Long points) {
+        this.points = points;
     }
 }

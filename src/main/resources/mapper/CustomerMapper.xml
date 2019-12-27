@@ -6,6 +6,106 @@
     <result column="customer_id" jdbcType="BIGINT" property="customerId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="sex" jdbcType="CHAR" property="sex" />
+    <result column="points" jdbcType="DECIMAL" property="points" />
+  </resultMap>
+  <insert id="insert" parameterType="com.example.helloworld.entity.Customer">
+    insert into customer (id, customer_id, name, 
+      sex, points)
+    values (#{id,jdbcType=BIGINT}, #{customerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=CHAR}, #{points,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.helloworld.entity.Customer">
+    insert into customer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="points != null">
+        points,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="points != null">
+        #{points,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.example.helloworld.entity.Customer">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="customer_id" jdbcType="BIGINT" property="customerId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="CHAR" property="sex" />
+    <result column="poinsts" jdbcType="DECIMAL" property="poinsts" />
+  </resultMap>
+  <insert id="insert" parameterType="com.example.helloworld.entity.Customer">
+    insert into customer (id, customer_id, name, 
+      sex, poinsts)
+    values (#{id,jdbcType=BIGINT}, #{customerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=CHAR}, #{poinsts,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.helloworld.entity.Customer">
+    insert into customer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="poinsts != null">
+        poinsts,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="poinsts != null">
+        #{poinsts,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.example.helloworld.entity.Customer">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="customer_id" jdbcType="BIGINT" property="customerId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="CHAR" property="sex" />
     <result column="poinsts" jdbcType="DECIMAL" property="poinsts" />
   </resultMap>
   <insert id="insert" parameterType="com.example.helloworld.entity.Customer">
