@@ -54,8 +54,11 @@ public class HelloController {
 	// private GridFsTemplate gridFsTemplate;
 
 	@RequestMapping("/hello")
-	public String getHello() {
+	public String getHello(HttpServletRequest httpRequest) {
+		String auth = httpRequest.getHeader("Authorization");
+		logger.info(auth);
 		return "Hello World";
+		
 	}
 
 	@RequestMapping("/redis")
