@@ -1,15 +1,14 @@
 package com.example.helloworld.controller;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.OutputStream;
+//import java.io.ByteArrayOutputStream;
+//import java.io.File;
+//import java.io.FileInputStream;
+//import java.io.FileNotFoundException;
+import java.io.IOException;
+//import java.io.InputStream;
+//import java.io.OutputStream;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -43,7 +42,7 @@ public class HelloController {
 
 	@Autowired
 	private CustomerService customerService;
-	
+
 	// @Autowired
 	// private UserRepository userRepository;
 	//
@@ -55,10 +54,59 @@ public class HelloController {
 
 	@RequestMapping("/hello")
 	public String getHello(HttpServletRequest httpRequest) {
-		String auth = httpRequest.getHeader("Authorization");
-		logger.info(auth);
-		return "Hello World";
 		
+		return "Hello World";
+	}
+
+	@RequestMapping("/sso")
+	public String getUsername(HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
+		String auth = httpRequest.getHeader("Authorization");
+		String username = null;
+		try {
+			if (auth == null) {
+				httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				httpResponse.setHeader("WWW-Authenticate", "NTLM");
+				httpResponse.flushBuffer();
+				return "";
+			}
+			if (auth.startsWith("NTLM ")) {
+				byte[] msg = null;
+				msg = new sun.misc.BASE64Decoder().decodeBuffer(auth.substring(5));
+
+				int off = 0, length, offset;
+				if (msg[8] == 1) {
+					byte z = 0;
+					byte[] msg1 = { (byte) 'N', (byte) 'T', (byte) 'L', (byte) 'M', (byte) 'S', (byte) 'S', (byte) 'P',
+							z, (byte) 2, z, z, z, z, z, z, z, (byte) 40, z, z, z, (byte) 1, (byte) 130, z, z, z,
+							(byte) 2, (byte) 2, (byte) 2, z, z, z, z, z, z, z, z, z, z, z, z };
+					httpResponse.setHeader("WWW-Authenticate", "NTLM " + new sun.misc.BASE64Encoder().encodeBuffer(msg1));
+					httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+					return "";
+				} else if (msg[8] == 3) {
+					off = 30;
+
+					length = msg[off + 17] * 256 + msg[off + 16];
+					offset = msg[off + 19] * 256 + msg[off + 18];
+					String remoteHost = new String(msg, offset, length);
+
+					length = msg[off + 1] * 256 + msg[off];
+					offset = msg[off + 3] * 256 + msg[off + 2];
+					String domain = new String(msg, offset, length);
+
+					length = msg[off + 9] * 256 + msg[off + 8];
+					offset = msg[off + 11] * 256 + msg[off + 10];
+					username = new String(msg, offset, length);
+
+					logger.info("Username:" + username.replace(username.substring(1, 2), ""));
+					logger.info("RemoteHost:" + remoteHost.replace(remoteHost.substring(1, 2), ""));
+					logger.info("Domain:" + domain.replace(domain.substring(1, 2), ""));
+				}
+			}
+		} catch (IOException e) {
+			logger.debug("get Authorization wrong");
+			e.printStackTrace();
+		}
+		return "Username:" + username.replace(username.substring(1, 2), "");
 	}
 
 	@RequestMapping("/redis")
@@ -87,7 +135,7 @@ public class HelloController {
 
 		return customerService.insertCustomer();
 	}
-		
+
 	// @RequestMapping("/mongodb/getAll")
 	// public List<User> getAllUser() {
 	// List<User> userList = userRepository.findAll();
