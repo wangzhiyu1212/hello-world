@@ -14,7 +14,7 @@ import org.springframework.core.env.Environment;
 import com.example.helloworld.datasourece.DynamicDataSource;
 import com.zaxxer.hikari.HikariDataSource;
 
-@Configuration
+//@Configuration
 public class DynamicDataSourceConfig {
 
 	private final static Logger logger = LoggerFactory.getLogger(DynamicDataSourceConfig.class);

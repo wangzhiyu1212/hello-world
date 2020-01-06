@@ -16,14 +16,14 @@ import org.slf4j.LoggerFactory;
 
 import com.example.helloworld.datasourece.DynamicDataSourceContextHolder;
 
-@WebFilter(filterName = "DynamicDataSourceFilter", urlPatterns = { "/hello","/sso","/mybatis" })
+//@WebFilter(filterName = "DynamicDataSourceFilter", urlPatterns = { "/hello","/sso","/mybatis" })
 public class DynamicDataSourceFilter implements Filter {
 
 	private final static Logger logger = LoggerFactory.getLogger(DynamicDataSourceFilter.class);
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		// do Something
+		// TODO
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class DynamicDataSourceFilter implements Filter {
 
 	@Override
 	public void destroy() {
-		// do Something
+		// TODO
 	}
 
 }
