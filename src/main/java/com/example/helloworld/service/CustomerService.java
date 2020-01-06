@@ -18,28 +18,15 @@ public class CustomerService {
 
 	@Autowired
 	private CustomerMapper customerMapper;
-	
+
 	Long cid = new Long(10000003);
 
 	public String insertCustomer() {
-		// for (int i = 0; i<100; i++) {
-		// Order order = new Order();
-		// order.setOrderId(redisTemplate.opsForValue().increment("OrderId", 1L));
-		// order.setProductCode("redis");
-		// orderMapper.insert(order);
-		// }
 
-		// for (int i = 0; i<100; i++) {
-		// customerMapper.insertCustomer(redisTemplate.opsForValue().increment("CustomerId",
-		// 1L), "redis");
-		// logger.info("i:" + i);
-		// }
-
-		//		return customerMapper.selectByPrimaryKey(id).getName();
 		customerMapper.insertCustomer(cid, String.valueOf(cid++));
-		
+
 		return "success";
 
 	}
-	
+
 }
