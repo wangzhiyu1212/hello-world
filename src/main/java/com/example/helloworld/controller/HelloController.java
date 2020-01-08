@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.data.mongodb.gridfs.GridFsResource;
 //import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -59,6 +60,11 @@ public class HelloController {
 		return "Hello World";
 	}
 
+	@RequestMapping("/hello/{name}")
+	public String hello(@PathVariable("name") String name) {
+		return "Hello," + name;
+	}
+	
 	@RequestMapping("/sso")
 	public String getUsername(HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
 		return LdapAuthUtil.getADUsername(httpRequest, httpResponse);
