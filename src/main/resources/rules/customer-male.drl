@@ -1,0 +1,10 @@
+package com.example.helloworld.entity
+import com.example.helloworld.entity.Customer
+dialect  "java"
+
+rule "male"
+    when
+        $customer : Customer(sex == "M")
+    then
+        System.out.println($customer.getName() + "是男士");
+end

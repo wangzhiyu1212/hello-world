@@ -11,6 +11,17 @@ public class Customer {
 
     private Long points;
 
+    public Customer() {
+    	
+    }
+    
+    public Customer(Long customerId, String name, String sex, Long points) {
+    	this.customerId = customerId;
+    	this.name = name;
+        this.sex = sex;
+        this.points = points;
+    }
+    
     public Long getId() {
         return id;
     }
