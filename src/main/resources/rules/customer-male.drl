@@ -1,10 +1,11 @@
 package com.example.helloworld.entity
 import com.example.helloworld.entity.Customer
 dialect  "java"
+global org.slf4j.Logger logger
 
 rule "male"
     when
         $customer : Customer(sex == "M")
     then
-        System.out.println($customer.getName() + "是男士");
+        logger.info($customer.getName() + "是男士");
 end

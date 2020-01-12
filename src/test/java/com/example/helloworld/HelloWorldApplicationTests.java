@@ -20,8 +20,12 @@ public class HelloWorldApplicationTests {
     public void customerTest() {
         Customer customer = new Customer();
         customer.setName("李刚");
-        customer.setSex("F");
+        customer.setSex("M");
+        Customer customer2 = new Customer();
+        customer2.setName("天天");
+        customer2.setSex("F");
         session.insert(customer);//插入
+        session.insert(customer2);//插入
         session.fireAllRules();//执行规则
     }
 	
