@@ -11,7 +11,7 @@ import com.example.helloworld.controller.HelloController;
 public class CronJob {
 	private final static Logger logger = LoggerFactory.getLogger(HelloController.class);
 
-	@Scheduled(cron = "0 0/1 * * * ?")
+//	@Scheduled(cron = "0 0/1 * * * ?")
 	public void cronJob() throws InterruptedException {
 
 		logger.info("cronJob start");
