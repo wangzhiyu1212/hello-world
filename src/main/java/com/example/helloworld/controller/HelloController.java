@@ -24,6 +24,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 //import com.example.helloworld.entity.User;
@@ -33,8 +35,12 @@ import com.example.helloworld.service.CustomerService;
 //import com.mongodb.client.gridfs.GridFSBuckets;
 //import com.mongodb.client.gridfs.GridFSDownloadStream;
 //import com.mongodb.client.gridfs.model.GridFSFile;
-import com.example.helloworld.util.LdapAuthUtil;
+//import com.example.helloworld.util.LdapAuthUtil;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(tags = "初始接口测试页面")
 @RestController
 public class HelloController {
 	private final static Logger logger = LoggerFactory.getLogger(HelloController.class);
@@ -53,25 +59,32 @@ public class HelloController {
 	//
 	// @Autowired
 	// private GridFsTemplate gridFsTemplate;
-
-	@RequestMapping("/hello")
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/hello")
 	public String getHello(HttpServletRequest httpRequest) {
-		
 		return "Hello World";
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/get")
+	@ApiOperation(value = "获取查询参数")
+	public String getHello(@RequestParam(name = "name") String name, HttpServletRequest httpRequest) {
+		
+		return "Hello, " + name;
+	}
 
-	@RequestMapping("/hello/{name}")
+	@RequestMapping(method = RequestMethod.GET, value = "/hello/{name}")
+	@ApiOperation(value = "获取路径参数")
 	public String hello(@PathVariable("name") String name) {
-		return "Hello," + name;
-	}
-	
-	@RequestMapping("/sso")
-	public String getUsername(HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
-		return LdapAuthUtil.getADUsername(httpRequest, httpResponse);
+		return "Hello, " + name;
 	}
 
-	
-	@RequestMapping("/redis")
+	// @RequestMapping("/sso")
+	// public String getUsername(HttpServletRequest httpRequest, HttpServletResponse
+	// httpResponse) {
+	// return LdapAuthUtil.getADUsername(httpRequest, httpResponse);
+	// }
+
+	@RequestMapping(method = RequestMethod.POST, value = "/redis")
 	public String getRedis() {
 		try {
 			Map<String, Object> testMap = new HashMap<String, Object>();
@@ -92,7 +105,7 @@ public class HelloController {
 		return "empty";
 	}
 
-	@RequestMapping("/mybatis")
+	@RequestMapping(value = "/mybatis")
 	public String getCustomer() {
 
 		return customerService.insertCustomer();
