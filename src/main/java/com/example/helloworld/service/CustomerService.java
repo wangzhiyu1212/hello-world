@@ -19,7 +19,7 @@ public class CustomerService {
 	@Autowired
 	private CustomerMapper customerMapper;
 
-	Long cid = new Long(10000003);
+	Long cid = new Long(10000000);
 
 	public String insertCustomer() {
 
