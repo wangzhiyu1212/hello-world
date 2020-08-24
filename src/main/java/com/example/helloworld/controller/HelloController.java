@@ -4,11 +4,12 @@ package com.example.helloworld.controller;
 //import java.io.File;
 //import java.io.FileInputStream;
 //import java.io.FileNotFoundException;
-import java.io.IOException;
 //import java.io.InputStream;
 //import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,11 +24,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.helloworld.mapper.PolicyInfoMapper;
+import com.example.helloworld.entity.PolicyInfo;
 //import com.example.helloworld.entity.User;
 //import com.example.helloworld.repository.UserRepository;
 import com.example.helloworld.service.CustomerService;
@@ -51,6 +55,9 @@ public class HelloController {
 	@Autowired
 	private CustomerService customerService;
 
+	@Resource
+    private PolicyInfoMapper policyMapper;
+	
 	// @Autowired
 	// private UserRepository userRepository;
 	//
@@ -59,16 +66,16 @@ public class HelloController {
 	//
 	// @Autowired
 	// private GridFsTemplate gridFsTemplate;
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/hello")
 	public String getHello(HttpServletRequest httpRequest) {
 		return "Hello World";
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/get")
 	@ApiOperation(value = "获取查询参数")
 	public String getHello(@RequestParam(name = "name") String name, HttpServletRequest httpRequest) {
-		
+
 		return "Hello, " + name;
 	}
 
@@ -76,6 +83,14 @@ public class HelloController {
 	@ApiOperation(value = "获取路径参数")
 	public String hello(@PathVariable("name") String name) {
 		return "Hello, " + name;
+	}
+
+	@RequestMapping(value = "/savePolicyInfo", method = { RequestMethod.POST, RequestMethod.GET })
+	public String savePolicyInfo(@RequestBody PolicyInfo policyInfo) {
+		for (int i = 0; i < 1000; i++) {
+			policyMapper.insert(policyInfo);
+		}
+		return "完成";
 	}
 
 	// @RequestMapping("/sso")

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.helloworld.mapper.PolicyInfoMapper">
+
+	<resultMap id="BaseResultMap" type="com.example.helloworld.entity.PolicyInfo">
+		<result column="id" jdbcType="INTEGER" property="policyId" />
+		<result column="policy_no" jdbcType="VARCHAR" property="policyNo" />
+		<result column="insurance_id" jdbcType="INTEGER" property="insuranceId" />
+		<result column="policy_holder_id" jdbcType="INTEGER" property="policyHolderId" />
+		<result column="package_id" jdbcType="INTEGER" property="packageId" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, policy_no, insurance_id, policy_holder_id,package_id
+	</sql>
+
+	<select id="select" parameterType="com.example.helloworld.entity.PolicyInfo"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from policy
+		where id = #{policyId}
+	</select>
+
+
+	<insert id="insert" parameterType="com.example.helloworld.entity.PolicyInfo">
+		INSERT INTO `policy` ( `policy_no`, `insurance_id`,
+		`policy_holder_id`, `package_id` )
+		VALUES
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+
+			<if test="policyNo != null">
+				#{policyNo},
+			</if>
+			<if test="insuranceId != null">
+				#{insuranceId},
+			</if>
+			<if test="policyHolderId != null">
+				#{policyHolderId},
+			</if>
+			<if test="packageId != null">
+				#{packageId}
+			</if>
+		</trim>
+	</insert>
+</mapper>
